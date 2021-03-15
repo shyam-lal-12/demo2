@@ -1,0 +1,52 @@
+[
+    {
+        "itemId": 1,
+        "name": "iphone",
+        "price": 1000
+    },
+    {
+        "itemId": 2,
+        "name": "macbook",
+        "price": 1500
+    },
+    {
+        "itemId": 3,
+        "name": "airpods",
+        "price": 200
+    },
+    {
+        "itemId": 4,
+        "name": "ipad",
+        "price": 400
+    },
+    {
+        "itemId": 5,
+        "name": "iwatch",
+        "price": 300
+    },
+    {
+        "itemId": 6,
+        "name": "sonyTV",
+        "price": 800
+    },
+    {
+        "itemId": 7,
+        "name": "samsung buds",
+        "price": 300
+    },
+    {
+        "itemId": 8,
+        "name": "harry Potter Vol3",
+        "price": 30
+    },
+    {
+        "itemId": 9,
+        "name": "T-Shirt",
+        "price": 20
+    },
+    {
+        "itemId": 10,
+        "name": "Jean",
+        "price": 30
+    }
+]

@@ -1,0 +1,82 @@
+[
+    {
+        "customerId":"1",
+        "item":{
+            "itemId": 5,
+            "name": "iwatch",
+            "price": 300
+        }
+    },
+    {
+        "customerId":"1",
+        "item":{
+            "itemId": 8,
+            "name": "harry Potter Vol3",
+            "price": 30
+        }
+    },
+    {
+        "customerId":"2",
+        "item":{
+            "itemId": 9,
+            "name": "T-Shirt",
+            "price": 20
+        }
+    },
+    {
+        "customerId":"3",
+        "item":{
+            "itemId": 4,
+            "name": "ipad",
+            "price": 400
+        }
+    },
+    {
+        "customerId":"3",
+        "item":{
+            "itemId": 1,
+            "name": "iphone",
+            "price": 1000
+        }
+    },
+    {
+        "customerId":"2",
+        "item":{
+            "itemId": 7,
+            "name": "samsung buds",
+            "price": 300
+        }
+    },
+    {
+        "customerId":"2",
+        "item":{
+            "itemId": 8,
+            "name": "harry Potter Vol3",
+            "price": 30
+        }
+    },
+    {
+        "customerId":"1",
+        "item":{
+            "itemId": 10,
+            "name": "Jean",
+            "price": 30
+        }
+    },
+    {
+        "customerId":"3",
+        "item":{
+            "itemId": 4,
+            "name": "ipad",
+            "price": 400
+        }
+    },
+    {
+        "customerId":"2",
+        "item":{
+            "itemId": 5,
+            "name": "iwatch",
+            "price": 300
+        }
+    }
+]
