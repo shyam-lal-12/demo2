@@ -25,6 +25,7 @@ import com.rbc.demo2.model.Wishlist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -77,7 +78,8 @@ public class UserRecommendationItemsService {
 	}
 
 	// method to get recommendation based on MY ORDERS LIST
-	private List<RatedItems> myOrdeList(int userId) throws UsernameNotFoundException{
+	@Cacheable(value = "my-orders-list")
+	private List<RatedItems> myOrdeList(int userId) throws UsernameNotFoundException {
 		LOGGER.info("Inside myOrdeList method.");
 		TypeReference<List<OrderItems>> typeReference_orderItems = new TypeReference<List<OrderItems>>() {
 		};
@@ -87,10 +89,13 @@ public class UserRecommendationItemsService {
 		List<RatedItems> ratedItems = new ArrayList<>();
 
 		try {
+			System.out.println("Going to sleep for 2 Secs.. to simulate backend call.");
+			Thread.sleep(1000 * 2);
 			ordersList = mapper.readValue(inputStream_userItemsList, typeReference_orderItems);
 			myOrdersList = ordersList.stream().filter(orders -> orders.getUser().getId() == userId)
 					.collect(Collectors.toList());
-			if(myOrdersList.isEmpty()|| myOrdersList==null) throw new UserNotFoundException();
+			if (myOrdersList.isEmpty() || myOrdersList == null)
+				throw new UserNotFoundException();
 			myOrdersList = myOrdersList.stream().filter(distinctByKey(OrderItems::getItem))
 					.collect(Collectors.toList());
 			ratedItems = myOrdersList.stream().map(rating -> {
@@ -98,15 +103,20 @@ public class UserRecommendationItemsService {
 			}).collect(Collectors.toList());
 
 			// sorting based on the item rating
-			ratedItems = ratedItems.stream().sorted(Comparator.comparing(RatedItems::getRating).reversed()).collect(Collectors.toList());
-			
+			ratedItems = ratedItems.stream().sorted(Comparator.comparing(RatedItems::getRating).reversed())
+					.collect(Collectors.toList());
+
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (InterruptedException ie) {
+			ie.printStackTrace();
 		}
 		return ratedItems;
 	}
 
+	
 	// method to get recommendation based on MY WISH LIST
+	@Cacheable(value = "my-wish-list")
 	private List<Item> filteredWishList(int userId) {
 
 		LOGGER.info("Inside filteredWishList method.");
@@ -115,23 +125,28 @@ public class UserRecommendationItemsService {
 		};
 		InputStream inputStream_wishItems = TypeReference.class.getResourceAsStream("/json/wishlist.json");
 
-		List<Wishlist> wishItems = new ArrayList<>();
-		List<Wishlist> filteredWishList = new ArrayList<>();
+		List<Wishlist> wishItems,filteredWishList = new ArrayList<>();
 		List<Item> myWishItems = new ArrayList<>();
 
 		try {
+			System.out.println("Going to sleep for 2 Secs.. to simulate backend call.");
+			Thread.sleep(1000 * 2);
 			wishItems = mapper.readValue(inputStream_wishItems, typeReference_wishList);
 			filteredWishList = wishItems.stream().filter(wishItem -> wishItem.getCustomerId() == userId)
 					.collect(Collectors.toList());
 			myWishItems = filteredWishList.stream().map(Wishlist::getItem).collect(Collectors.toList());
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (InterruptedException ie) {
+			ie.printStackTrace();
 		}
 		return myWishItems;
 
 	}
 
+	
 	// method to get recommendation based on RATING
+	@Cacheable(value = "rating-list")
 	private List<RatedItems> ratingsList(int userId) {
 
 		LOGGER.info("Inside ratingsList method.");
@@ -142,6 +157,8 @@ public class UserRecommendationItemsService {
 		List<Rating> itemRatings = new ArrayList<>();
 		List<RatedItems> ratedItems = new ArrayList<>();
 		try {
+			System.out.println("Going to sleep for 2 Secs.. to simulate backend call.");
+			Thread.sleep(1000 * 2);
 			itemRatings = mapper.readValue(inputStream_itemRatings, typeReference_rating);
 			// remove the items bought by {userId}
 			List<Rating> otherCustomers = itemRatings.stream().filter(rating -> rating.getCustomerId() != userId)
@@ -152,9 +169,12 @@ public class UserRecommendationItemsService {
 				return setRatedItemsObject(rating.getItem(), rating.getRating());
 			}).collect(Collectors.toList());
 			// sorting based on the item rating
-			ratedItems = ratedItems.stream().sorted(Comparator.comparing(RatedItems::getRating).reversed()).collect(Collectors.toList());
+			ratedItems = ratedItems.stream().sorted(Comparator.comparing(RatedItems::getRating).reversed())
+					.collect(Collectors.toList());
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (InterruptedException ie) {
+			ie.printStackTrace();
 		}
 		return ratedItems;
 
