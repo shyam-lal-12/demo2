@@ -1,28 +1,28 @@
 package com.rbc.demo2.model;
 
-import java.util.Objects;
+// import java.util.Objects;
 
-public class RatingMapper {
+// public class RatingMapper {
 
-    Rating rating;
+//     Rating rating;
 
-    public RatingMapper(Rating rating) {
-        this.rating = rating;
-    }
+//     public RatingMapper(Rating rating) {
+//         this.rating = rating;
+//     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof RatingMapper))
-            return false;
-        RatingMapper other = (RatingMapper) obj;
-        return Objects.equals(rating.getCustomerId(), other.rating.getCustomerId())
-                || rating.getItem().getItemId() == other.rating.getItem().getItemId();
-    }
+//     @Override
+//     public boolean equals(Object obj) {
+//         if (!(obj instanceof RatingMapper))
+//             return false;
+//         RatingMapper other = (RatingMapper) obj;
+//         return Objects.equals(rating.getCustomerId(), other.rating.getCustomerId())
+//                 || rating.getItem().getItemId() == other.rating.getItem().getItemId();
+//     }
 
-    @Override
-    public int hashCode() {
-        return 1;
-    }
+//     @Override
+//     public int hashCode() {
+//         return 1;
+//     }
 
     // public class ItemWrapper {
 
@@ -45,4 +45,4 @@ public class RatingMapper {
     // return 1;
     // }
     // }
-}
+// }
