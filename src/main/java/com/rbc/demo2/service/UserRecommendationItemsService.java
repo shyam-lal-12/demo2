@@ -25,7 +25,7 @@ import com.rbc.demo2.model.Wishlist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,6 +33,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 // @Transactional
+@CacheConfig(cacheNames = {"customer"})
 public class UserRecommendationItemsService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserRecommendationItemsService.class);
@@ -78,7 +79,7 @@ public class UserRecommendationItemsService {
 	}
 
 	// method to get recommendation based on MY ORDERS LIST
-	@Cacheable(value = "my-orders-list")
+	// @Cacheable(value = "my-orders-list")
 	private List<RatedItems> myOrdeList(int userId) throws UsernameNotFoundException {
 		LOGGER.info("Inside myOrdeList method.");
 		TypeReference<List<OrderItems>> typeReference_orderItems = new TypeReference<List<OrderItems>>() {
@@ -116,7 +117,7 @@ public class UserRecommendationItemsService {
 
 	
 	// method to get recommendation based on MY WISH LIST
-	@Cacheable(value = "my-wish-list")
+	// @Cacheable(value = "my-wish-list")
 	private List<Item> filteredWishList(int userId) {
 
 		LOGGER.info("Inside filteredWishList method.");
@@ -146,7 +147,7 @@ public class UserRecommendationItemsService {
 
 	
 	// method to get recommendation based on RATING
-	@Cacheable(value = "rating-list")
+	// @Cacheable(value = "rating-list")
 	private List<RatedItems> ratingsList(int userId) {
 
 		LOGGER.info("Inside ratingsList method.");
